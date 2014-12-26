@@ -35,7 +35,7 @@ end
 
 desc 'list exported users'
 task :exported_users do
-  @importer.user_hash.each{|u| puts "#{u['email']} #{u['ad_guid']}"}
+  @importer.user_hash.each{|u| puts "#{u['email']} #{u['name']}"}
 end
 
 desc 'list exported projects'
