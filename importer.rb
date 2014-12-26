@@ -158,6 +158,7 @@ class Importer
   def add_repos(gitlab_group = nil, gitorious_project, owner_id)
     gitorious_project['repositories']
       .select{|p| p['owner_type'] == 'Group'}
+      .reject{|p| p['name'].include? 'tracking_repository'}
       .each do |repo|
       gitorious_repo_dir = File.join(@repo_dir, gitorious_project['slug'], "#{repo['name']}.git")
   
