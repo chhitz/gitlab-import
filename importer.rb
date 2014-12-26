@@ -180,7 +180,7 @@ class Importer
 
       new_project = @gitlab.create_project(
         name,
-        {description: description, wiki_enabled: true, wall_enabled: true, issues_enabled: true, snippets_enabled: true, merge_requests_enabled: true, public: true, user_id: owner_id})
+        {description: description, wiki_enabled: false, wall_enabled: true, issues_enabled: true, snippets_enabled: true, merge_requests_enabled: true, public: true, user_id: owner_id})
   
       if gitlab_group
         [1, 2, 3].each do |i|
