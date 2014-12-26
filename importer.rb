@@ -133,7 +133,7 @@ class Importer
 
     existing_users.each do |u|
       puts "    adding user to project - #{u[:username]}" if @verbose
-      @gitlab.add_team_member(gitlab_project.id, u[:id], 50)
+      @gitlab.add_team_member(gitlab_project.id, u[:id], 40)
     end
   end
 
@@ -149,7 +149,7 @@ class Importer
 
     existing_users.each do |u|
       puts "  adding user to group - #{u[:username]}" if @verbose
-      @gitlab.add_group_member(gitlab_group.id, u[:id], 50)
+      @gitlab.add_group_member(gitlab_group.id, u[:id], 40)
     end
   end
 
