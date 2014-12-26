@@ -193,9 +193,10 @@ class Importer
           end
         end
         new_project = @gitlab.project(new_project.id)
+      else
+        add_users_to_project(new_project, repo)
       end
-  
-      add_users_to_project(new_project, repo)
+
       push_repo(new_project, rugged_repo)
     end
   end
