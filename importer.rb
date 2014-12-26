@@ -142,6 +142,7 @@ class Importer
     gitlab_users = get_users.inject({}){|memo, obj| memo[obj.username] = obj.id; memo}
 
     existing_users = gitorious_project['repositories']
+      .select{|r| r['owner_type'] == 'Group'}
       .map{|r| r['committers']}
       .flatten
       .uniq
@@ -155,7 +156,9 @@ class Importer
   end
 
   def add_repos(gitlab_group = nil, gitorious_project, owner_id)
-    gitorious_project['repositories'].each do |repo|
+    gitorious_project['repositories']
+      .select{|p| p['owner_type'] == 'Group'}
+      .each do |repo|
       gitorious_repo_dir = File.join(@repo_dir, gitorious_project['slug'], "#{repo['name']}.git")
   
       if !Dir.exists?(gitorious_repo_dir)
