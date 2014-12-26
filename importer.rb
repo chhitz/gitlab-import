@@ -43,8 +43,9 @@ class Importer
       .each_with_index do |u, i|
         email = get_email(u['email'], i)
         name = get_username(u['email'])
-        puts "creating #{email} - #{name}" if @verbose
-        @gitlab.create_user(email, 'password', {username: name, name: name, projects_limit: 9999})
+        login = u['login']
+        puts "creating #{email} - #{name} - #{login}" if @verbose
+        @gitlab.create_user(email, 'password', {username: login, name: name, projects_limit: 9999})
       end
   end
 
@@ -66,7 +67,7 @@ class Importer
       .each do |u|
         puts "loading keys for: #{u.username}" if @verbose
         sudo(u.id) do
-          gitorious_user = @user_hash.find{|h| get_username(h['email']) == u.username}
+          gitorious_user = @user_hash.find{|h| (h['login']) == u.username}
           next unless gitorious_user
           gitorious_user['ssh_keys'].uniq.each do |k|
             title = k.split(' ').last
